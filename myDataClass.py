@@ -20,7 +20,6 @@ class MyDataClass:
         description: Calculates the number of leap years that have occured up to and included the year of
                         the date provided
     """
-
     def count_leap_years(self):
         years = self.year
         # If the date is before February 29 in a leap year, don't count this year as a leap year
