@@ -1,17 +1,18 @@
 """ Written by Dani Lopez
-    Last update: 2024-07-08
+    Last update: 2024-07-15
     Description: Determines the number of weekdays between two dates, inclusive of both the first and second date.
 """
 
 import copy
+import sys
 
 
 class MyDataClass:
     # constuctor
     def __init__(self, month, day, year):
-        self.month = month
-        self.day = day
-        self.year = year
+        self.month = int(month)
+        self.day = int(day)
+        self.year = int(year)
 
     days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
@@ -20,6 +21,7 @@ class MyDataClass:
         description: Calculates the number of leap years that have occured up to and included the year of
                         the date provided
     """
+
     def count_leap_years(self):
         years = self.year
         # If the date is before February 29 in a leap year, don't count this year as a leap year
@@ -124,13 +126,18 @@ class MyDataClass:
 
 
 def main():
-    # Example run
-    first_date = MyDataClass(1, 1, 2000)
-    second_date = MyDataClass(12, 31, 2000)
-    weekdays = MyDataClass.num_week_days(first_date, second_date)
+    # Check for correct number of command line arguements, then parse
+    if len(sys.argv) != 3:
+        print("Usage: python3 myDataClass.py <start_date> <end_date>")
+        sys.exit(1)
 
-    print("Number of week days between given dates, inclusive:")
-    print(weekdays)
+    start_date = sys.argv[1].split("-")
+    end_date = sys.argv[2].split("-")
+
+    start_date = MyDataClass(*start_date)
+    end_date = MyDataClass(*end_date)
+
+    print(MyDataClass.num_week_days(start_date, end_date))
 
 
 if __name__ == '__main__':

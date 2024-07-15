@@ -17,21 +17,6 @@ date8 = MyDataClass(7, 13, 2024)  # Saturday
 date9 = MyDataClass(7, 14, 2024)  # Sunday
 date10 = MyDataClass(7, 15, 2024)  # Monday
 
-date11 = MyDataClass(1, 1, 2024)  # Leap year, 262 week days
-date12 = MyDataClass(12, 31, 2024)
-
-date13 = MyDataClass(1, 1, 2023)  # Non-leap year, 260 week days
-date14 = MyDataClass(12, 31, 2023)
-
-date15 = MyDataClass(1, 1, 2000)  # Century leap year, 260 week days
-date16 = MyDataClass(12, 31, 2000)
-
-date17 = MyDataClass(1, 1, 1900)  # Centruy non-leap year, 261 week days
-date18 = MyDataClass(12, 31, 1900)
-
-date19 = MyDataClass(1, 1, 2027)  
-date20 = MyDataClass(12, 31, 2027)
-
 
 class TestDataClass(unittest.TestCase):
     def test_num_week_days(self):
@@ -60,18 +45,31 @@ class TestDataClass(unittest.TestCase):
             date2, date9), 5)  # weekday to Sunday
 
         self.assertEqual(MyDataClass.num_week_days(
-            date11, date12), 262)  # leap year
+            MyDataClass(1, 1, 2024) , date12 = MyDataClass(12, 31, 2024)), 262)  # leap year
         self.assertEqual(MyDataClass.num_week_days(
-            date13, date14), 260)  # non-leap year
+            MyDataClass(1, 1, 2023), MyDataClass(12, 31, 2023)), 260)  # non-leap year
 
         self.assertEqual(MyDataClass.num_week_days(
-            date15, date16), 260)  # century leap year
+            MyDataClass(1, 1, 2000), MyDataClass(12, 31, 2000)), 260)  # century leap year
         self.assertEqual(MyDataClass.num_week_days(
-            date17, date18), 261)  # century non-leap year
+            MyDataClass(1, 1, 1900), MyDataClass(12, 31, 1900)), 261)  # century non-leap year
         
         self.assertEqual(MyDataClass.num_week_days(
-            date19, date20), 261) 
+            MyDataClass(1, 1, 2027), MyDataClass(12, 31, 2027)), 261) 
 
+        self.assertEqual(MyDataClass.num_week_days(
+            MyDataClass(7, 15, 2024), MyDataClass(7, 15, 2024)), 1) # same date, weekday
+        
+        self.assertEqual(MyDataClass.num_week_days(
+            MyDataClass(7, 14, 2024), MyDataClass(7, 14, 2024)), 0) # same date, sunday
+        
+        self.assertEqual(MyDataClass.num_week_days(
+            MyDataClass(7, 13, 2024), MyDataClass(7, 13, 2024)), 0) # same date, saturday
+        
+        self.assertEqual(MyDataClass.num_week_days(
+            MyDataClass(12, 31, 2023), MyDataClass(1, 1, 2024)), 1) # year boundary
+        
+        
 
 if __name__ == '__main__':
     unittest.main()
