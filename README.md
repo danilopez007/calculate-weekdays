@@ -24,4 +24,4 @@ The test_myDataClass.py file contains unit tests for MyDataClass. To run the tes
 
 ## Author
 Dani Lopez
-Last updated 2024-07-09
+Last updated 2024-07-23
