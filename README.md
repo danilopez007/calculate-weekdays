@@ -13,12 +13,9 @@ MyDataClass is a Python class that determines the number of weekdays, inclusivel
 
 ## Usage Example
 ```
-first_date = MyDataClass(1, 1, 2000)
-second_date = MyDataClass(12, 31, 2000)
-weekdays = MyDataClass.num_week_days(first_date, second_date)
+python3 myDataClass.py <start_date> <end_date>
 
-print("Number of week days between given dates, inclusive:")
-print(weekdays)
+python3 myDataClass.py 1-1-1990 1-1-2010  
 ```
 
 ## Testing

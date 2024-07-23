@@ -1,5 +1,5 @@
 """ Written by Dani Lopez
-    Last update: 2024-07-15
+    Last update: 2024-07-23
     Description: Determines the number of weekdays between two dates, inclusive of both the first and second date.
 """
 
@@ -24,15 +24,21 @@ class MyDataClass:
 
     def count_leap_years(self):
         years = self.year
-        # If the date is before February 29 in a leap year, don't count this year as a leap year
-        if years % 4 == 0 and (years % 100 != 0 or years % 400 == 0) and (self.month < 2 or (self.month == 2 and self.day < 29)):
+        # If the date is before March in a leap year, don't count this year as a leap year
+        if self.month <= 2:
             years -= 1
 
-        # end-of-century years that are not divisible by 400 are not leap years
-        if years % 100 == 0 and years % 400 != 0:
-            return years // 4 - years // 100
-        else:
-            return years // 4 - years // 100 + years // 400
+        return years // 4 - years // 100 + years // 400
+
+    """ input: Date as instance of MyDataClass
+        return: boolean
+        description: Determines if the year of the date provided is a leap year
+    """
+
+    def is_leap_year(self):
+        if (self.year % 4 == 0 and self.year % 100 != 0) or (self.year % 400 == 0):
+            return True
+        return False
 
     """ input: Two dates, as instances of myDataClass
         return: Number of days between the two dates as an integer
@@ -99,17 +105,20 @@ class MyDataClass:
         current_date = copy.deepcopy(start_date)
         weekend_days = 0
 
-        # iterates from start to end date and counts each weekend day
         while (current_date.year < end_date.year) or (current_date.year == end_date.year and current_date.month < end_date.month) or (current_date.year == end_date.year and current_date.month == end_date.month and current_date.day <= end_date.day):
             day_of_week = MyDataClass.day_of_week(current_date)
-            # 0: Saturday or 1: Sunday
             if day_of_week == 0 or day_of_week == 1:
                 weekend_days += 1
 
             current_date.day += 1
             if current_date.day > MyDataClass.days_in_month[current_date.month - 1]:
-                current_date.day = 1
-                current_date.month += 1
+                if current_date.month == 2 and current_date.is_leap_year():
+                    if current_date.day > 29:
+                        current_date.day = 1
+                        current_date.month += 1
+                else:
+                    current_date.day = 1
+                    current_date.month += 1
                 if current_date.month > 12:
                     current_date.month = 1
                     current_date.year += 1
